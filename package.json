@@ -1,0 +1,8 @@
+{
+  "name": "rwr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sirharwell/repack.git",
+  "author": "Ian Harwell <sirharwell@gmail.com>",
+  "license": "MIT"
+}
