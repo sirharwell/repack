@@ -4,5 +4,10 @@
   "main": "index.js",
   "repository": "https://github.com/sirharwell/repack.git",
   "author": "Ian Harwell <sirharwell@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/"
+    
+  }
 }

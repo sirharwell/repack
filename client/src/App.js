@@ -1,39 +1,31 @@
 import React, { Component } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import axios from 'axios'
 
 class App extends Component {
   state = { todos: [] }
 
   componentDidMount() {
-    fetch('/api/items')
-      .then( res => res.json() )
-      .then( todos => this.setState({ todos }) )
+    axios.get('/api/items')
+      .then( res => this.setState({ todos: res.data }) )
   }
 
   addItem = (name) => {
     let item = { name }
-    fetch('/api/items', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(item)
-    }).then( res => res.json() )
-      .then( todo => {
+    axios.post('/api/items', { item })
+      .then( res => {
         const { todos } = this.state;
-        this.setState({ todos: [...todos, todo] })
+        this.setState({ todos: [...todos, res.data] })
       })
   }
 
   updateTodo = (id) => {
-    fetch(`/api/items/${id}`, { method: 'PUT' })
-      .then( res => res.json() )
-      .then( item => {
+    axios.put(`/api/items/${id}`)
+      .then( res => {
         let todos = this.state.todos.map( t => {
           if (t.id === id)
-            return item
+            return res.data
           return t
         })
 
@@ -43,7 +35,7 @@ class App extends Component {
   }
 
   deleteTodo = (id) => {
-    fetch(`/api/items/${id}`, { method: 'DELETE' })
+    axios.delete(`/api/items/${id}`)
       .then( () => {
         const { todos } = this.state
         this.setState({
