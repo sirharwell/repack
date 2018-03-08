@@ -12,6 +12,7 @@ class Api::ItemsController < ApplicationController
     else
       render json: { errors: item.errors }, status: 422
     end
+  end
 
     def update
       @item.update(complete: !@item.complete)
